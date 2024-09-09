@@ -9,7 +9,7 @@ const PrimaryBtn = ({ children, ...props }) => {
         type: "spring",
         stiffness: 500,
       }}
-      className="w-fit flex items-center justify-center gap-1 p-2 bg-primaryColor text-white font-medium rounded-xl hover:bg-accentColor"
+      className="w-fit text-sm flex items-center justify-center gap-1 p-2 bg-primaryColor text-white font-medium rounded-xl hover:bg-accentColor"
     >
       {children}
     </motion.button>

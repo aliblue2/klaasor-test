@@ -14,13 +14,13 @@ const Header = () => {
   };
   return (
     <>
-      <header className="w-full bg-white shadow-md h-16 z-10">
+      <header className="w-full bg-white shadow-md h-16 z-20">
         <div className="max-w-[1100px] mx-auto flex items-center justify-between gap-5 px-5 h-full">
           <div className="flex items-center justify-start gap-2">
             <MdMenu
               onClick={menuDrawerToggler}
-              size={20}
-              className="md:hidden"
+              size={24}
+              className="md:hidden cursor-pointer"
             />
             <Image
               src={LogoImage}

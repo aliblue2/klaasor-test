@@ -2,16 +2,35 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { useState } from "react";
-import { MdArrowDownward, MdArrowRight, MdArrowRightAlt } from "react-icons/md";
+import { MdArrowDownward, MdArrowRightAlt } from "react-icons/md";
 const GridUsers = ({ users }) => {
   const [isExpendItem, setIsExpendItem] = useState(-1);
+  if (users.length === 0) {
+    return (
+      <div className="flex items-center justify-center gap-2 my-5">
+        <h6 className="text-primaryColor font-medium text-xl">
+          no have user to display
+        </h6>
+      </div>
+    );
+  }
   return (
     <div className="my-5">
       <motion.ul
-        transition={{
-          staggerChildren: 0.05,
+        initial={{
+          top: -200,
+          opacity: 0,
         }}
-        className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3"
+        whileInView={{
+          top: 0,
+          opacity: 1,
+        }}
+        transition={{
+          type: "keyframes",
+          ease: "easeInOut",
+          duration: 1,
+        }}
+        className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 relative"
       >
         {users.map((user) => {
           return (

@@ -18,7 +18,7 @@ const MenuDrawer = ({ menuToggle }) => {
         ease: "easeInOut",
         duration: 0.5,
       }}
-      className="fixed z-10 md:hidden top-0 left-0 w-full h-full bg-primaryColor bg-opacity-30"
+      className="fixed z-20 md:hidden top-0 left-0 w-full h-full bg-primaryColor bg-opacity-30"
     >
       <motion.div
         className="w-[70%] fixed flex flex-col items-center justify-around bg-white shadow-md rounded-r-3xl h-full p-2"

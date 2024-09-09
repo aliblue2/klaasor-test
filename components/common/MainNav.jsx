@@ -4,8 +4,6 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 const MainNav = () => {
   const pathName = usePathname();
-  console.log(pathName);
-
   return (
     <ul className="flex items-center justify-start gap-2 md:flex-row flex-col">
       <motion.li className="relative p-2">
