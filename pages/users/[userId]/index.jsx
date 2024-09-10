@@ -3,11 +3,17 @@ import { getAllUsers, getUserDetail } from "@/pages/api/api-call";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { MdArrowBack, MdContacts, MdLocationPin, MdPhone, MdWeb } from "react-icons/md";
+import ProfilePlaceholder from "@/assets/profile.png";
+import {
+  MdArrowBack,
+  MdContacts,
+  MdLocationPin,
+  MdPhone,
+  MdWeb,
+} from "react-icons/md";
 
 const UserDetail = (props) => {
   const user = props.userInfo;
-  console.log(user);
 
   return (
     <>
@@ -24,6 +30,10 @@ const UserDetail = (props) => {
             src={user.image}
             width={244}
             height={244}
+            placeholder="blur"
+            blurDataURL={
+              "https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541"
+            }
             alt="fake user avatar"
             className="bg-gradient-to-br from-primaryColor to-emerald-500 rounded-full p-1"
           />
@@ -63,7 +73,7 @@ const UserDetail = (props) => {
             molestiae rerum, ullam itaque adipisci aliquam porro quasi fugit
             dolores alias neque.
           </p>
-          <PrimaryBtn >
+          <PrimaryBtn>
             Contact to this Mentor <MdContacts size={20} />
           </PrimaryBtn>
         </div>

@@ -1,12 +1,16 @@
 import GridUsers from "@/components/common/GridUsers";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { getAllUsers } from "../api/api-call";
 import PrimaryBtn from "@/components/common/PrimaryBtn";
-import { MdSortByAlpha } from "react-icons/md";
+import { MdSkipNext, MdSkipPrevious, MdSortByAlpha } from "react-icons/md";
 import LoadingUi from "@/components/common/LoadingUi";
+import Link from "next/link";
 
-const UsersPage = (props) => {
-  const [sortedUsers, setSortedUsers] = useState(props.users);
+const UsersPage = ({ users, totalPage, currentPage }) => {
+  const [sortedUsers, setSortedUsers] = useState(users);
+  useEffect(() => {
+    setSortedUsers(users);
+  }, [users]);
   const [isLoadig, setLoading] = useState(false);
   const searchInpt = useRef();
 
@@ -24,7 +28,7 @@ const UsersPage = (props) => {
   const searchUserHandler = (event) => {
     event.preventDefault();
     if (searchInpt.current.value.trim() === "") {
-      setSortedUsers(props.users);
+      setSortedUsers(users);
       return;
     }
     setLoading(true);
@@ -34,7 +38,6 @@ const UsersPage = (props) => {
         .toLowerCase()
         .includes(searchInpt.current.value.toLowerCase());
     });
-    console.log(filteredUser);
 
     setSortedUsers(filteredUser);
     setTimeout(() => {
@@ -68,17 +71,45 @@ const UsersPage = (props) => {
         />
       </div>
       <GridUsers users={sortedUsers} />
+      <div className="flex items-center justify-between gap-5 my-5">
+        {currentPage > 1 && (
+          <Link
+            href={`/users?page=${currentPage - 1}`}
+            className="bg-primaryColor rounded-full p-[1px] text-white"
+          >
+            <MdSkipPrevious size={20} />
+          </Link>
+        )}
+        <span>
+          page {currentPage} of {totalPage}
+        </span>
+        {currentPage < totalPage && (
+          <Link
+            href={`/users?page=${currentPage + 1}`}
+            className="bg-primaryColor rounded-full p-[1px] text-white"
+          >
+            <MdSkipNext size={20} />
+          </Link>
+        )}
+      </div>
     </>
   );
 };
 
 export default UsersPage;
 
-export async function getServerSideProps() {
+export async function getServerSideProps(context) {
+  const { page = 1 } = context.query;
+  const limitUsers = 4;
   const users = await getAllUsers();
+  const start = (page - 1) * limitUsers;
+  const paginatedUsers = users.slice(start, start + limitUsers);
+  const totalPage = Math.ceil(users.length / limitUsers);
   return {
     props: {
-      users,
+      users: paginatedUsers,
+      totalPage,
+      currentPage: Number(page),
     },
   };
 }

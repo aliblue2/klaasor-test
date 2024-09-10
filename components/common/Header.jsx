@@ -3,8 +3,9 @@ import MainNav from "./MainNav";
 import PrimaryBtn from "./PrimaryBtn";
 import { MdLogin, MdMenu } from "react-icons/md";
 import MenuDrawer from "./MenuDrawer";
-import { AnimatePresence } from "framer-motion";
+import { AnimatePresence, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
+import { motion } from "framer-motion";
 import LogoImage from "@/assets/logo.png";
 
 const Header = () => {
@@ -12,9 +13,14 @@ const Header = () => {
   const menuDrawerToggler = () => {
     setMenuDrawerVis(!menuDrawerVis);
   };
+  const { scrollY } = useScroll();
+  const headerBgColor = useTransform(scrollY, [0, 100], ["#0000", "#fff"]);
   return (
     <>
-      <header className="w-full bg-white shadow-md h-16 z-20">
+      <motion.header
+        style={{ backgroundColor: headerBgColor }}
+        className="w-full  h-16 z-20 sticky top-0"
+      >
         <div className="max-w-[1100px] mx-auto flex items-center justify-between gap-5 px-5 h-full">
           <div className="flex items-center justify-start gap-2">
             <MdMenu
@@ -39,7 +45,7 @@ const Header = () => {
             <MdLogin size={18} />
           </PrimaryBtn>
         </div>
-      </header>
+      </motion.header>
       <AnimatePresence>
         {menuDrawerVis && <MenuDrawer menuToggle={menuDrawerToggler} />}
       </AnimatePresence>
