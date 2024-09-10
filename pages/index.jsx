@@ -1,7 +1,6 @@
 import Hero from "@/components/home-compo/Hero";
 import { getAllUsers } from "./api/api-call";
 import GridUsers from "@/components/common/GridUsers";
-import { Suspense } from "react";
 import Link from "next/link";
 import TopCources from "@/components/home-compo/TopCources";
 import AppInfo from "@/components/home-compo/AppInfo";

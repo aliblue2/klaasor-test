@@ -3,7 +3,7 @@ import { getAllUsers, getUserDetail } from "@/pages/api/api-call";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import ProfilePlaceholder from "@/assets/profile.png";
+import profileImage from "@/assets/profile.png";
 import {
   MdArrowBack,
   MdContacts,
@@ -27,13 +27,10 @@ const UserDetail = (props) => {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
         <div className="col-span-1 flex flex-col items-center justify-center gap-2">
           <Image
-            src={user.image}
+            src={profileImage}
             width={244}
             height={244}
             placeholder="blur"
-            blurDataURL={
-              "https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541"
-            }
             alt="fake user avatar"
             className="bg-gradient-to-br from-primaryColor to-emerald-500 rounded-full p-1"
           />
@@ -101,7 +98,6 @@ export async function getStaticPaths() {
 export async function getStaticProps(context) {
   const userId = context.params.userId;
   const userInfo = await getUserDetail(userId);
-  userInfo.image = "https://avatar.iran.liara.run/public";
   return {
     props: {
       userInfo,
